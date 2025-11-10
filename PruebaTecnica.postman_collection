@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "4f720846-4dd1-463f-b22f-8d2f17627f14",
+		"name": "Prueba Tecnica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21121808"
+	},
+	"item": [
+		{
+			"name": "Test Get",
+			"item": [
+				{
+					"name": "Test Get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar que ciertos títulos y cuerpos existan\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    const expectedData = [\r",
+									"        { title: \"dolorum ut in voluptas mollitia et saepe quo animi\" },\r",
+									"        { title: \"autem hic labore sunt dolores incidunt\" },\r",
+									"        { body: \"aut dicta possimus sint mollitia voluptas commodi quo doloremque\\niste corrupti reiciendis voluptatem eius rerum\\nsit cumque quod eligendi laborum minima\\nperferendis recusandae assumenda consectetur porro architecto ipsum ipsam\" },\r",
+									"        { body: \"enim et ex nulla\\nomnis voluptas quia qui\\nvoluptatem consequatur numquam aliquam sunt\\ntotam recusandae id dignissimos aut sed asperiores deserunt\" }\r",
+									"    ];\r",
+									"\r",
+									"    expectedData.forEach(item => {\r",
+									"        const key = Object.keys(item)[0];\r",
+									"        const value = item[key];\r",
+									"        const found = response.some(post => post[key] && post[key].includes(value));\r",
+									"        pm.expect(found, `No se encontró ${key}: ${value}`).to.be.true;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Post",
+			"item": [
+				{
+					"name": "Test Post",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar creación de producto exitosa\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"    const jsonData = pm.response.json();\r",
+									"\r",
+									"    // Validar que la respuesta tenga ID\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData.id).to.be.a(\"number\");\r",
+									"\r",
+									"    // Validación opcional del cuerpo enviado (no de la respuesta)\r",
+									"    const requestData = JSON.parse(pm.request.body.raw);\r",
+									"    pm.expect(requestData).to.have.property(\"title\");\r",
+									"    pm.expect(requestData).to.have.property(\"price\");\r",
+									"\r",
+									"    console.log(\"Producto creado con ID:\", jsonData.id);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Nuevo producto\",\r\n  \"price\": 99\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dummyjson.com/products/add",
+							"protocol": "https",
+							"host": [
+								"dummyjson",
+								"com"
+							],
+							"path": [
+								"products",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
