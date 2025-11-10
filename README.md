@@ -14,7 +14,7 @@ Este repositorio contiene las pruebas automatizadas de los servicios utilizando 
 
 ### 🚀 Instrucciones de Ejecución
 
-El comando siguiente asume que el archivo de **colección** (`Prueba.postman_collection.json`) y el archivo de **entorno** (`MiEntorno.postman_environment.json`) están en la raíz del repositorio. **Asegúrate de exportar ambos archivos desde Postman.**
+El comando siguiente asume que el archivo de **colección** (`Prueba.postman_collection.json`) est en la raíz del repositorio.
 
 #### Comando de Ejecución Completo (la evidencia se genera en la carpeta Resultados)
 
